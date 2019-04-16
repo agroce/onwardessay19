@@ -46,6 +46,7 @@
 
 %
 % The "title" command has an optional parameter, allowing the author to define a "short title" to be used in page headers.
+
 \title{How to Assault Your Code with Mad Libs\\for Fun and Profit}
 
 %
@@ -123,6 +124,60 @@
 \maketitle
 
 \section{Introduction: What is a Mad Lib?}
+
+Software testing research has many interesting and powerful techniques for finding bugs in software.
+Most of these have two things in common:
+The first is that they are centered around attempting to generate \emph{test cases} which some \emph{test oracle} determines triggers a bug in some \emph{system under test} (SUT).
+The second is that almost nobody uses them in practice.
+
+As researchers in this field, it would be natural for us to object to the implied criticism there,
+and to some extent we do.
+The goal of a researcher is not to build tools, it is to do good research,
+and the software testing research community has certainly achieved that.
+If the tools are not being built, this is arguably a failure of industry and not of the research community.
+
+This objection is reasonable, defensible, and problematic.
+Although it may be unreasonable to expect researchers to build tools,
+the lack of uptake from industry implies certain ``missing research questions''.
+It's perhaps too much to hope for research papers to include ``\textbf{RQ1}: Why is nobody using our stuff?'',
+but at the minimum we would like to see more techniques from software testing research making it into practice,
+and suggest that the fact that they are not may be because we've missed out on some bridging research that would make that possible.
+
+One area where software testing search has enjoyed success is ``property-based testing'',
+a term describing a loose family of libraries designed to make it easy for practitioners to write generative tests for themselves,
+originally popularised by QuickCheck, a Haskell and later Erlang library for software testing.
+QuickCheck itself is quite popular,
+and many libraries inspired by it exist in other languages.
+
+The key to QuickCheck's success is mostly ease of use,
+and key to that ease is that practioners can readily generate test cases which are suitable for just about any SUT or test oracle.
+In particular, it is easy to \emph{compose} test-case generators,
+so users can easily build test-case generators suitable for their needs.
+
+At the heart of QuickCheck's ease of composition is the fact that it uses \emph{random test-case generation}.
+Random test-case generation is one of the few methods that is widely used in practice, because it is robust and easy to implement---all
+you need to know to write a tolerably effective random test-case generator is how to construct a test case of the right format.
+Anyone testing their software with handwritten tests knows how to construct the relevant test cases,
+so it is a relatively small step from hand writing test cases to generating them.
+
+Set aside this is the problem that, while random testing is surprisingly effective,
+it falls significantly short of the state of the art,
+and the random test-case generators used in property-based testing are in turn not especially sophisticated and fall well short of the state of the art of random testing.
+
+Unfortunately, most more advanced systems have historically lacked the pleasing compositional properties of random testing,
+because they require more sophisticated operations on or understanding of the generated test cases.
+We believe this is one of the key obstacles to broader adoption.
+
+If true, this leaves us in the unfortunate situation that the systems that are easy to adopt are not especially effective at finding bugs,
+and the systems that are effective at finding bugs are not ones that are easy to adopt.
+
+In this paper we discuss one possible way to get some of the best of both worlds,
+using the idea that we can view random test-case generation as a form of parsing,
+and that we can manipulate the parsed input format in more interesting ways than just generating it uniformly at random.
+This retains all the compositional properties of random test-case generation,
+but by giving us a concrete representation we can work with opens up the possibility of bringing more advanced techniques to bear on the problem.
+
+In this paper we will 1) Explain the underlying basis for this approach 2) Describe how it has been used in several practical tools and 3) Suggest future research directions that it might be profitable to pursue.
 
 \section{The Simplest Random Tester}
 
